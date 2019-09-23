@@ -41,6 +41,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             isLogged : false,
+            user: null,
             view: 'profile',
             modal: null
         };
@@ -48,6 +49,8 @@ class App extends React.Component {
         this.register = this.register.bind(this);
         this.login = this.login.bind(this);
         this.cancel = this.cancel.bind(this);
+        this.setUser = this.setUser.bind(this);
+        this.logout = this.logout.bind(this);
     }
     changeView(event) {
         this.setState({
@@ -58,7 +61,6 @@ class App extends React.Component {
         this.setState({
             modal : 'register'
         });
-        console.log(1);
     }
     login() {
         this.setState({
@@ -68,6 +70,19 @@ class App extends React.Component {
     cancel() {
         this.setState({
             modal : null
+        });
+    }
+    setUser(user) {
+        this.setState({
+            isLogged: true,
+            user: user,
+            modal: null
+        });
+    }
+    logout() {
+        this.setState({
+            isLogged: false,
+            user: null
         });
     }
     render() {
@@ -87,9 +102,9 @@ class App extends React.Component {
                 {(() => {
                     switch(this.state.modal) {
                         case 'login':
-                            return <Login name="Login" register={false} cancel={this.cancel}/>;
+                            return <Login name="Login" register={false} cancel={this.cancel} setUser={this.setUser}/>;
                         case 'register':
-                            return <Login name="Register" register={true} cancel={this.cancel}/>;
+                            return <Login name="Register" register={true} cancel={this.cancel} setUser={this.setUser}/>;
                         default:
                             return null; 
                     }

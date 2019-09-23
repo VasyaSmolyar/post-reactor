@@ -5,6 +5,51 @@ const stdPass = 'Password must be longer than 7 characters and contain only lati
 const errConf = 'Passwords must match';
 var reg = /^[\w\d]+$/;
 
+function auth() {
+    /*
+    TODO: add work with backend 
+    */
+    var users = [
+        {
+            name: 'test',
+            pass: 'testpass'
+        }
+    ];
+    return {
+        register: function(name, pass) {
+            var res = null;
+            users.forEach(function(user) {
+                if(user.name == name) {
+                    res = user;
+                }
+            });
+            if(res != null) 
+                return null;
+            res = {
+                name: name,
+                pass: pass
+            }
+            users.push(res);
+            res = Object.create(res);
+            delete res.pass;
+            return res;
+        },
+        login: function(name, pass) {
+            var res = null;
+            users.forEach(function(user) {
+                if(user.name == name && user.pass == pass) {
+                    res = user;
+                }
+            });
+            if(res != null) {
+                delete res.pass;
+            }
+            return res;
+        }
+    }
+
+}
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -17,7 +62,7 @@ class Login extends React.Component {
             confirmMes: '',
             loginClass: 'regular',
             passClass: 'regular',
-            confClass: 'regular'
+            confirmClass: 'regular'
         };
         this.login = this.login.bind(this);
         this.password = this.password.bind(this);
@@ -51,8 +96,7 @@ class Login extends React.Component {
         } else if(text.length < 8) {
             step = 'error';
             mes = 'Password must be longer than 7 characters';
-        }
-        if (this.state.confirm != '' && this.state.confirm != text) {
+        } else if (this.state.confirm != '' && this.state.confirm != text) {
             confStep = 'error';
             conf = errConf;
         } else {
@@ -64,7 +108,7 @@ class Login extends React.Component {
             passMes: mes,
             confirmMes: conf,
             passClass: step,
-            confClass: confStep
+            confirmClass: confStep
         });
     }
 
@@ -86,7 +130,22 @@ class Login extends React.Component {
     }
 
     send() {
-        console.log([this.state.loginClass,this.state.passClass,this.state.confirmClass]);
+        var request = auth(), user;
+        var login = this.state.loginClass == this.state.passClass;
+        var conf = this.state.passClass == this.state.confirmClass;
+        var reg = this.state.confirmClass == this.state.loginClass;
+        if(this.props.name == 'Login') {
+            if(!login || (this.state.loginClass != 'great'))
+                return;
+            user = request.login(this.state.login, this.state.password);
+        } else {
+            if(!login || !conf || !reg || (this.state.loginClass != 'great'))
+                return;
+            user = request.register(this.state.login, this.state.password);
+        }
+        if(user != null) {
+            this.props.setUser(user);
+        }
     }
 
     render() {
