@@ -10,11 +10,13 @@ function Header(props) {
 function Profile(props) {
     if (props.isLogged)
         return ( <div className="view">
-        <h1>User profile</h1>
+        <h1>User "{props.user.name}" profile</h1>
+        <button onClick={props.logout} id="logout">Logout</button>
         </div>);
     else
         return (<div className="view">
                     <h1>Login or register</h1>
+                    <p>Use login "test" and password "testpass" for testing. Also you can register a new user.</p>
                     <button onClick={props.login}>Login</button>
                     <button onClick={props.register}>Register</button>
                 </div>);
@@ -22,7 +24,7 @@ function Profile(props) {
 
 function Menu(props) {
     return (
-        <div>
+        <div id="menu">
             <button data-target='main' onClick={props.clickHandler}>All posts</button>
             <button data-target='create' onClick={props.clickHandler}>Create post</button>
             <button data-target='profile' onClick={props.clickHandler}>Profile</button>
@@ -104,7 +106,7 @@ class App extends React.Component {
                         case 'create':
                             return <Create />;
                         case 'profile':
-                            return <Profile isLogged={this.state.isLogged} register={this.register} login={this.login}/>; 
+                            return <Profile user={this.state.user} isLogged={this.state.isLogged} register={this.register} login={this.login} logout={this.logout}/>; 
                     }
                 })()}
                 {(() => {

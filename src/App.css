@@ -8,15 +8,107 @@ body {
   background-color: #8e44ad;
   color: #ecf0f1;
   padding: 15px;
-  padding-left: 50px;
+  padding-left: 200px;
   font-size: 25px;
 }
 
 .view {
   padding-top: 30px;
-  padding-left: 50px;
+  padding-left: 200px;
 }
 
 h1 {
   font-size: 25px;
 }
+
+button {
+  padding: 10px 15px;
+  font-family: Roboto;
+  font-weight: bold;
+  background-color: #8e44ad;
+  color: #ecf0f1;
+  border: none;
+  border-radius: 5px;
+}
+
+.view button {
+    margin-right: 10px;
+}
+
+#modal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+  }
+  
+  #modal > div {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding: 15px 30px;  
+    background-color: #ecf0f1;
+  }
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #modal .inputGroup {
+    margin-bottom: 15px; 
+  }
+
+  #modal .inputGroup > input {
+    font-family: Roboto;
+    margin-right: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+
+  #modal .inputGroup > span {
+    font-size: 12px;
+  }
+
+  #modal .inputGroup > input.great {
+    border: 1px solid #2ecc71;
+  }
+
+  #modal .inputGroup > input.error {
+    border: 1px solid #e74c3c;
+  }
+
+  #modal .inputGroup > span.error {
+    color: #e74c3c;
+  }
+
+  #cancel {
+    background-color: #e74c3c;
+  }
+
+  #logout {
+    background-color: #e74c3c;
+  }
+
+  #menu {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    position: fixed;
+    top: 150px;
+  }
+
+  #menu button {
+    border-bottom: 2px solid #ecf0f1;
+    padding: 40px 20px;
+    border-radius: 0;
+  }

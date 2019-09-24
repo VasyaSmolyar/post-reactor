@@ -145,6 +145,19 @@ class Login extends React.Component {
         }
         if(user != null) {
             this.props.setUser(user);
+        } else {
+            if(this.props.name == 'Login') {
+                this.setState( {
+                    loginClass: 'error',
+                    passClass: 'error',
+                    loginMes: 'Wrong login or password'
+                }); 
+            } else {
+                this.setState( {
+                    loginClass: 'error',
+                    loginMes: 'This login is occupied'
+                })
+            }
         }
     }
 
@@ -152,16 +165,23 @@ class Login extends React.Component {
         return (
             <div id="modal">
                 <div>
-                    <button onClick={this.props.cancel}>Cancel</button>
-                    <input onChange={this.login} value={this.state.login} className={this.state.loginClass}/>
-                    <span>{this.state.loginMes}</span>
-                    <input onChange={this.password} value={this.state.password} className={this.state.passClass}/>
-                    <span>{this.state.passMes}</span>
+                    <div className="modalHeader">
+                        <h1>{this.props.name}</h1>
+                        <button id="cancel" onClick={this.props.cancel}>Cancel</button>
+                    </div>
+                    <div className="inputGroup">
+                        <input onChange={this.login} value={this.state.login} className={this.state.loginClass}/>
+                        <span className={this.state.loginClass}>{this.state.loginMes}</span>
+                    </div>
+                    <div className="inputGroup">
+                        <input onChange={this.password} value={this.state.password} className={this.state.passClass}/>
+                        <span className={this.state.passClass}>{this.state.passMes}</span>
+                    </div>
                     {(() => {if(this.props.register) {
-                        return(<span>
-                                <input onChange={this.confirm} value={this.state.confirm} className={this.state.confirmClass} />
-                                <span>{this.state.confirmMes}</span>
-                        </span>);
+                        return(<div className="inputGroup">
+                                <input onChange={this.confirm} value={this.state.confirm} className={this.state.confirmClass}/>
+                                <span className={this.state.confirmClass}>{this.state.confirmMes}</span>
+                        </div>);
                     }})()}
                     <button onClick={this.send}>{this.props.name}</button>
                 </div>
