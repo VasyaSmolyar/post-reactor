@@ -4,14 +4,16 @@ import logo from './logo.svg';
 import './App.css';
 
 function Header(props) {
-    return <div><img src={props.logo} /><span>Post Reactor</span></div>
+    return <div className='header'><img src={props.logo} /><span>Post Reactor</span></div>
 }
 
 function Profile(props) {
     if (props.isLogged)
-        return <h1>User profile</h1>
+        return ( <div className="view">
+        <h1>User profile</h1>
+        </div>);
     else
-        return (<div>
+        return (<div className="view">
                     <h1>Login or register</h1>
                     <button onClick={props.login}>Login</button>
                     <button onClick={props.register}>Register</button>
@@ -29,11 +31,17 @@ function Menu(props) {
 }
 
 function Main(props) {
-    return <h1>All posts</h1>
+		return ( <div className="view">
+    <h1>All posts</h1>
+    </div>
+    );
 }
 
 function Create(props) {
-    return <h1>Create a post</h1>
+    return ( <div className="view">
+    <h1>Create a post</h1>
+    </div>
+    );
 }
 
 class App extends React.Component {
