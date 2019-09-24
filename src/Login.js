@@ -170,16 +170,16 @@ class Login extends React.Component {
                         <button id="cancel" onClick={this.props.cancel}>Cancel</button>
                     </div>
                     <div className="inputGroup">
-                        <input onChange={this.login} value={this.state.login} className={this.state.loginClass}/>
+                        <input onChange={this.login}value={this.state.login} className={this.state.loginClass}/>
                         <span className={this.state.loginClass}>{this.state.loginMes}</span>
                     </div>
                     <div className="inputGroup">
-                        <input onChange={this.password} value={this.state.password} className={this.state.passClass}/>
+                        <input onChange={this.password} type="password" wvalue={this.state.password} className={this.state.passClass}/>
                         <span className={this.state.passClass}>{this.state.passMes}</span>
                     </div>
                     {(() => {if(this.props.register) {
                         return(<div className="inputGroup">
-                                <input onChange={this.confirm} value={this.state.confirm} className={this.state.confirmClass}/>
+                                <input onChange={this.confirm} value={this.state.confirm} type="password" className={this.state.confirmClass}/>
                                 <span className={this.state.confirmClass}>{this.state.confirmMes}</span>
                         </div>);
                     }})()}

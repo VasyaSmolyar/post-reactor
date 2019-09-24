@@ -29,6 +29,7 @@ button {
   color: #ecf0f1;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .view button {
