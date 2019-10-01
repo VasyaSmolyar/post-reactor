@@ -1,3 +1,7 @@
+/*
+    min 762px width
+*/
+
 body {
   font-family: Roboto;
 }
@@ -11,8 +15,7 @@ body {
 }
 
 .view {
-  padding-top: 30px;
-  padding-left: 200px;
+  padding: 30px 200px;
 }
 
 h1 {

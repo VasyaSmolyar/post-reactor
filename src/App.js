@@ -1,5 +1,7 @@
 import React from 'react';
-import Login from './Login.js' 
+import Login from './Login.js';
+import Main from './Main.js' 
+//import Full from './Main.js' 
 import logo from './logo.svg';
 import './App.css';
 
@@ -32,18 +34,19 @@ function Menu(props) {
     );
 }
 
-function Main(props) {
-		return ( <div className="view">
-    <h1>All posts</h1>
-    </div>
-    );
-}
-
 function Create(props) {
     return ( <div className="view">
     <h1>Create a post</h1>
     </div>
     );
+}
+
+function Full(props) {
+    return (<div className="view">
+        <h1>{props.post.title}</h1>
+        <p>{props.post.text}</p>
+        <button data-target='main' onClick={props.back}>Back</button>
+    </div>);
 }
 
 class App extends React.Component {
@@ -61,6 +64,7 @@ class App extends React.Component {
         this.cancel = this.cancel.bind(this);
         this.setUser = this.setUser.bind(this);
         this.logout = this.logout.bind(this);
+        this.read = this.read.bind(this);
     }
     changeView(event) {
         this.setState({
@@ -95,6 +99,11 @@ class App extends React.Component {
             user: null
         });
     }
+    read(post) {
+        this.setState({
+            view: <Full post={post} back={this.changeView}/>
+        });
+    }
     render() {
         return (
             <div>
@@ -102,11 +111,13 @@ class App extends React.Component {
                 {(() => {
                     switch(this.state.view) {
                         case 'main':
-                            return <Main />;
+                            return <Main check={this.read} />;
                         case 'create':
                             return <Create />;
                         case 'profile':
-                            return <Profile user={this.state.user} isLogged={this.state.isLogged} register={this.register} login={this.login} logout={this.logout}/>; 
+                            return <Profile user={this.state.user} isLogged={this.state.isLogged} register={this.register} login={this.login} logout={this.logout}/>;
+                        default:
+                            return this.state.view;
                     }
                 })()}
                 {(() => {
