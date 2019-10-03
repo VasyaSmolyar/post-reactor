@@ -114,3 +114,19 @@ button {
     padding: 40px 20px;
     border-radius: 0;
   }
+
+  .picture {
+    float: left;
+    margin-right: 15px;
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  .main-picture {
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .center {
+    text-align: center;
+  }

@@ -1,7 +1,6 @@
 import React from 'react';
 import Login from './Login.js';
 import Main from './Main.js' 
-//import Full from './Main.js' 
 import logo from './logo.svg';
 import './App.css';
 
@@ -37,6 +36,7 @@ function Menu(props) {
 function Create(props) {
     return ( <div className="view">
     <h1>Create a post</h1>
+    <p>Coming soon!</p>
     </div>
     );
 }
@@ -44,6 +44,9 @@ function Create(props) {
 function Full(props) {
     return (<div className="view">
         <h1>{props.post.title}</h1>
+        <div className="center">
+            <img className="main-picture" src={props.post.pic} />
+        </div>
         <p>{props.post.text}</p>
         <button data-target='main' onClick={props.back}>Back</button>
     </div>);
