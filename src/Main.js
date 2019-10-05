@@ -20,6 +20,11 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
         this.check = this.check.bind(this);
+        this.refresh = this.refresh.bind(this);
+        this.state = {posts : []};
+        const client = new Client();
+        client.getPosts(this.refresh);
+        setInterval(() => {client.getPosts(this.refresh)}, 100);
     }
     check(post) {
         return () => {
@@ -29,12 +34,18 @@ class Main extends React.Component {
     cut(str) {
         return str.slice(0, 200);
     }
+    refresh(data) {
+        this.setState({posts: data});
+    }
     render() {
-        const mes = getPosts();
+        const mes = this.state.posts;
         if('error' in mes) {
             return (<div className="view"><h1>{mes.error} {mes.status}</h1></div>)
         } 
         const data = mes.map((post) => {
+            if (post.pic == '') {
+                post.pic = Picture;
+            }
             return <Post post={post} cut={this.cut} check={this.check(post)} />;
         });
         return ( <div className="view">
