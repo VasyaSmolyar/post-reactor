@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#backend
+db.sqlite3
+venv
+__pycache__
