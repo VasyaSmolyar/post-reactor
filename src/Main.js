@@ -2,11 +2,7 @@ import React from 'react';
 import Picture from './default.jpg';
 import Client from './Client.js';
 
-function getPosts() {
-    var client = new Client();
-    const res = client.getPosts();
-    return res;
-}
+
 
 function Post(props) {
     return (<div>
@@ -24,7 +20,9 @@ class Main extends React.Component {
         this.state = {posts : []};
         const client = new Client();
         client.getPosts(this.refresh);
-        setInterval(() => {client.getPosts(this.refresh)}, 100);
+        if (this.props.liveReload) {
+            setInterval(() => {client.getPosts(this.refresh)}, 100);
+        }
     }
     check(post) {
         return () => {

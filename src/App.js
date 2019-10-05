@@ -114,7 +114,7 @@ class App extends React.Component {
                 {(() => {
                     switch(this.state.view) {
                         case 'main':
-                            return <Main check={this.read} />;
+                            return <Main check={this.read} liveReload={false} />;
                         case 'create':
                             return <Create />;
                         case 'profile':
