@@ -20,9 +20,10 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'posts', views.PostView)
+router.register(r'users', views.UserView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    #path('api-auth/', include('rest_framework.urls')),
     path('', include(router.urls))
 ]
