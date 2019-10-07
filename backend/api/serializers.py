@@ -21,3 +21,9 @@ class UserSerializer(serializers.Serializer):
         user.set_password(data['password'])
         user.save()
         return user
+
+class AuthSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField(read_only=True)
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(write_only=True)

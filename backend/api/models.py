@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+import random
+import string
 
 class ReactManager(BaseUserManager):
     use_in_migrations = True
@@ -70,3 +72,12 @@ class ReactUser(AbstractBaseUser, PermissionsMixin):
             else:
                 self.__setattr__(key, value)
         self.save()
+
+class UserToken(models.Model):
+    token = models.CharField(max_length=255, unique=True)
+    user = models.ForeignKey(ReactUser, on_delete=models.CASCADE)
+
+    @staticmethod
+    def generate(length=20):
+        src = string.ascii_letters + string.digits
+        return ''.join([random.choice(src) for x in range(length)])
