@@ -3,12 +3,19 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 import random
 import string
 
+def generate(length=30):
+    src = string.ascii_letters + string.digits
+    res = ''.join([random.choice(src) for x in range(length)])
+    print(res)
+    return res
+
 class ReactManager(BaseUserManager):
     use_in_migrations = True
 
     def create_user(self, username, password=None):
         user = self.model(username = username)
         user.active = True
+        user.token = generate()
         user.set_password(password)
         user.save()
         return user
@@ -25,7 +32,6 @@ class ReactManager(BaseUserManager):
         user.is_superuser = True
         user.save()
         return user
-
 
 # Create your models here.
 class Post(models.Model):
@@ -44,6 +50,7 @@ class ReactUser(AbstractBaseUser, PermissionsMixin):
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
+    token = models.CharField(max_length=255, default='')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
@@ -72,12 +79,3 @@ class ReactUser(AbstractBaseUser, PermissionsMixin):
             else:
                 self.__setattr__(key, value)
         self.save()
-
-class UserToken(models.Model):
-    token = models.CharField(max_length=255, unique=True)
-    user = models.ForeignKey(ReactUser, on_delete=models.CASCADE)
-
-    @staticmethod
-    def generate(length=20):
-        src = string.ascii_letters + string.digits
-        return ''.join([random.choice(src) for x in range(length)])

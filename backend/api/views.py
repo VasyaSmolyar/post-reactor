@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Post, ReactUser
+from .models import Post, ReactUser, generate
 from .serializers import PostSerializer, UserSerializer, AuthSerializer
 # Create your views here.
 
@@ -45,6 +45,8 @@ def auth(request):
             return Response({'error' : 'Wrong login or password'})
         user = ReactUser.objects.get(username=request.data['username'])
         if user.check_password(request.data['password']):
+            user.token = generate()
+            user.save()
             serializer = AuthSerializer(user)
             return Response(serializer.data)
         else:

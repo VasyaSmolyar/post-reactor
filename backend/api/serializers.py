@@ -15,6 +15,7 @@ class UserSerializer(serializers.Serializer):
     name = serializers.CharField(default='')
     avatar = serializers.CharField(default='')
     about = serializers.CharField(default='')
+    token = serializers.CharField(read_only=True)
 
     def create(self, data):
         user = ReactUser(**data)
@@ -27,3 +28,4 @@ class AuthSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True)
+    token = serializers.CharField(read_only=True)
